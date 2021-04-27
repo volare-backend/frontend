@@ -1,4 +1,3 @@
-// @ts-ignore
 import { User } from 'firebase/auth/dist/index.esm'
 import React, { createContext, useEffect, useState } from 'react'
 
