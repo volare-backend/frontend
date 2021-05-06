@@ -17,11 +17,6 @@ const Index: React.FC = () => {
     currentUser && console.log('ログイン成功')
   }, [currentUser])
 
-  const login = () => {
-    const provider = new firebase.auth.GoogleAuthProvider()
-    auth.signInWithRedirect(provider)
-  }
-
   return (
     <>
       <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
