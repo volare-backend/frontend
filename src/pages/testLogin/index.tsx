@@ -2,6 +2,8 @@ import React, { useContext, useEffect } from 'react'
 import firebase, { auth } from '../../utils/firebase'
 import { AuthContext } from '../../auth/auth'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
+import { useRecoilState } from 'recoil'
+import { userState } from '../../atom/userInfoAtom'
 
 const Index: React.FC = () => {
   const { currentUser } = useContext(AuthContext)
