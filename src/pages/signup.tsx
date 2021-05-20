@@ -2,6 +2,8 @@ import React from 'react'
 import Image from 'next/image'
 import { TextField, Button, Grid, Container, Link, Box, Divider } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
+import firebase, { auth } from '../utils/firebase'
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -20,6 +22,12 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Login: React.FC<any> = () => {
+  const uiConfig = {
+    signInFlow: 'popup',
+    signInSuccessUrl: '/',
+    signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+  }
+
   const classes = useStyles()
 
   const DividerWithText = ({ children }) => (
@@ -91,6 +99,7 @@ const Login: React.FC<any> = () => {
             </form>
             <Box py={2} />
             <DividerWithText>または</DividerWithText>
+            <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
           </Box>
           <Box ml={8}>
             <Image src={'/signup.svg'} width="800px" height="800px" />
