@@ -1,58 +1,103 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import React, { useEffect, useState } from 'react'
+import { Box, makeStyles, Theme, Grid, Typography, Tabs, Tab, Container } from '@material-ui/core'
+import { Pagination } from '@material-ui/lab'
+import { Notes as NotesModel, Tech } from '../models'
+import { GetStaticProps } from 'next'
+import { fetchAllNotes } from '../repositories/note'
+import { fetchTechsAndCompanies } from '../repositories/tech'
+import NoteCard from '../components/noteCard'
+import { SearchArea } from '../components/searchArea'
 
-export default function Home() {
+const useStyles = makeStyles((theme: Theme) => ({
+  currentNumber: {
+    fontSize: 25,
+  },
+  order: {
+    fontSize: 18,
+  },
+}))
+
+const Home: React.VFC<{ notes: NotesModel }> = ({ notes }: { notes: NotesModel }) => {
+  const classes = useStyles()
+  const perPage = 6
+  const [order, setOrder] = useState(0)
+  const [techs, setTechs] = useState<Tech[]>([])
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  const handleOrderChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    setOrder(newValue)
+  }
+
+  useEffect(() => {
+    const f = async () => {
+      const t = await fetchTechsAndCompanies()
+      setTechs(t)
+    }
+    f()
+  }, [])
+
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <>
+      <Container component="main" maxWidth="lg">
+        <Grid container spacing={4}>
+          {/*検索*/}
+          <Grid item xs={4}>
+            <SearchArea techs={techs} />
+          </Grid>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+          {/*コンテンツ*/}
+          <Grid item xs={8}>
+            <Box>
+              {/*件数表示/並び替え*/}
+              <Box display="flex" justifyContent="space-between">
+                <Typography
+                  variant="subtitle1"
+                  className={classes.currentNumber}
+                >{`${notes.current}/${notes.all}件表示`}</Typography>
 
-        <p className={styles.description}>
-          Get started by editing <code className={styles.code}>pages/index.js</code>
-        </p>
+                <Box display="flex">
+                  <Typography variant="subtitle1" className={classes.order}>
+                    並び替え
+                  </Typography>
+                  <Tabs
+                    value={order}
+                    indicatorColor="primary"
+                    textColor="primary"
+                    onChange={handleOrderChange}
+                    aria-label="disabled tabs example"
+                  >
+                    <Tab label="評価" />
+                    <Tab label="新着" />
+                  </Tabs>
+                </Box>
+              </Box>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+              {/*一覧*/}
+              <Box mt={2}>
+                <Grid container spacing={2}>
+                  {notes.notes.map((note) => (
+                    <Grid item xs={6} key={note.id}>
+                      <NoteCard note={note} />
+                    </Grid>
+                  ))}
+                </Grid>
+              </Box>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a href="https://github.com/vercel/next.js/tree/master/examples" className={styles.card}>
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>Instantly deploy your Next.js site to a public URL with Vercel.</p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
+              <Box textAlign="center" my={3}>
+                <Box display="inline-block">
+                  <Pagination count={Math.ceil(notes.all / perPage)} color="primary" />
+                </Box>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>
+    </>
   )
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const notes = await fetchAllNotes()
+  return { props: { notes } }
+}
+
+export default Home

@@ -1,11 +1,11 @@
-import { Note } from '../models'
+import { Note as NoteModel, Notes as NotesModel } from '../models'
 
 export const fetchAllNoteIds = async (): Promise<{ params: { id: string } }[]> => {
   // FIXME(Kondo 2021/05/11): Fetch Data From API
   return new Promise((resolve, reject) => setTimeout(() => resolve([{ params: { id: '1' } }]), 100))
 }
 
-export const fetchNote = async (id: string): Promise<Note> => {
+export const fetchNote = async (id: string): Promise<NoteModel> => {
   // FIXME(Kondo 2021/05/11): Fetch Data From API
   return new Promise((resolve, reject) =>
     setTimeout(
@@ -50,4 +50,11 @@ export const fetchNote = async (id: string): Promise<Note> => {
       100,
     ),
   )
+}
+
+export const fetchAllNotes = async (): Promise<NotesModel> => {
+  // FIXME(Nakajima 2021/05/17): Fetch Data From API
+  const note = await fetchNote('1')
+  const notes = [...Array(6)].map(() => note)
+  return { notes: notes, current: 6, all: 100, nextID: 'testtest' }
 }
