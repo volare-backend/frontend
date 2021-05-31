@@ -46,12 +46,16 @@ export const SearchArea: React.VFC<{ techs: Tech[] }> = ({ techs }: { techs: Tec
   const selectStyle = (value: number | undefined) => {
     if (value != undefined) {
       setStyle(value)
+    } else {
+      setSeason(undefined)
     }
   }
 
   const selectSeason = (value: number | undefined) => {
     if (value != undefined) {
       setSeason(value)
+    } else {
+      setSeason(undefined)
     }
   }
 

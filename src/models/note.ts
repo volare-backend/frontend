@@ -21,7 +21,7 @@ export type Note = {
 
 export type Notes = {
   notes: Note[]
-  current: number
-  all: number
+  currentPage: number
+  totalPages: number
   nextID: string
 }
