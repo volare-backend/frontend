@@ -1,7 +1,7 @@
 import { atom } from 'recoil'
-import User from '../type/User'
+import loginInfo from '../type/loginInfo'
 
-export const userState = atom<User | null>({
+export const userState = atom<loginInfo | null>({
   key: 'user',
   default: null,
 })

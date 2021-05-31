@@ -4,7 +4,7 @@ import { AuthContext } from '../../auth/auth'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import { useRecoilValue } from 'recoil'
 import { userState } from '../../atom/userInfoAtom'
-import User from '../../type/User'
+import User from '../../type/loginInfo'
 
 const Index: React.FC = () => {
   const { currentUser } = useContext(AuthContext)

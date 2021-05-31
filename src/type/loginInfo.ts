@@ -1,9 +1,9 @@
 import { Url } from './url'
 
-type User = {
+type loginInfo = {
   uid: string
   isSignIn: boolean
   name: string
   thumbnail: Url
 }
-export default User
+export default loginInfo
