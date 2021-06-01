@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Login: React.FC<any> = () => {
+const SignUp: React.FC<any> = () => {
   const uiConfig = {
     signInFlow: 'popup',
     signInSuccessUrl: '/',
@@ -110,4 +110,4 @@ const Login: React.FC<any> = () => {
   )
 }
 
-export default Login
+export default SignUp
