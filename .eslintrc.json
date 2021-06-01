@@ -23,6 +23,10 @@
     }
   },
   "rules": {
+    "react/prop-types": "off",
+    "multiline-ternary": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/ban-ts-ignore": "off",
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off"
   },

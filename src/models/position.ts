@@ -1,0 +1,12 @@
+export type Position =
+  | 'デザイン'
+  | 'iOS'
+  | 'Android'
+  | 'Webフロント'
+  | 'バックエンド'
+  | 'SRE'
+  | 'ゲーム'
+  | 'データサイエンス'
+  | 'AI / ML'
+  | 'QA'
+  | 'その他'
