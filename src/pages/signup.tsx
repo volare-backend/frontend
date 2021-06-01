@@ -11,6 +11,9 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '1.5em',
     color: '#F9F8FE',
     backgroundColor: '#4634EE',
+    '&:hover': {
+      backgroundColor: '#556cd6',
+    },
   },
   input: {
     borderRadius: '1em',
