@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Box, makeStyles, Theme, Grid, Typography, Tabs, Tab, Container } from '@material-ui/core'
 import { Pagination } from '@material-ui/lab'
-import { Notes as NotesModel, Tech } from '../models'
+import { Company, Notes as NotesModel, Tech } from '../models'
 import { GetStaticProps } from 'next'
 import { fetchAllNotes } from '../repositories/note'
-import { fetchTechsAndCompanies } from '../repositories/tech'
+import { fetchTechs } from '../repositories/tech'
 import NoteCard from '../components/noteCard'
 import { SearchArea } from '../components/searchArea'
+import { fetchCompanies } from '../repositories/company'
 
 const useStyles = makeStyles((theme: Theme) => ({
   currentNumber: {
@@ -22,6 +23,7 @@ const Home: React.VFC<{ notes: NotesModel }> = ({ notes }: { notes: NotesModel }
   const notePerPage = 6
   const [order, setOrder] = useState(0)
   const [techs, setTechs] = useState<Tech[]>([])
+  const [companies, setCompanies] = useState<Company[]>([])
   // eslint-disable-next-line @typescript-eslint/ban-types
   const handleOrderChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setOrder(newValue)
@@ -29,8 +31,10 @@ const Home: React.VFC<{ notes: NotesModel }> = ({ notes }: { notes: NotesModel }
 
   useEffect(() => {
     const f = async () => {
-      const t = await fetchTechsAndCompanies()
+      const t = await fetchTechs()
       setTechs(t)
+      const c = await fetchCompanies()
+      setCompanies(c)
     }
     f()
   }, [])
@@ -40,7 +44,7 @@ const Home: React.VFC<{ notes: NotesModel }> = ({ notes }: { notes: NotesModel }
       <Grid container spacing={4}>
         {/*検索*/}
         <Grid item xs={4}>
-          <SearchArea techs={techs} />
+          <SearchArea techs={techs} companies={companies} />
         </Grid>
 
         {/*コンテンツ*/}
@@ -83,7 +87,7 @@ const Home: React.VFC<{ notes: NotesModel }> = ({ notes }: { notes: NotesModel }
 
             <Box textAlign="center" my={3}>
               <Box display="inline-block">
-                <Pagination count={Math.ceil(notes.currentPage / notePerPage)} color="primary" />
+                <Pagination count={Math.ceil(notes.totalPages / notePerPage)} color="primary" />
               </Box>
             </Box>
           </Box>

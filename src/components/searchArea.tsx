@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Tech } from '../models'
+import { Company, Tech } from '../models'
 import {
   Box,
   Checkbox,
@@ -24,7 +24,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-export const SearchArea: React.VFC<{ techs: Tech[] }> = ({ techs }: { techs: Tech[] }) => {
+export const SearchArea: React.VFC<{ techs: Tech[]; companies: Company[] }> = ({
+  techs = [],
+  companies = [],
+}: {
+  techs: Tech[]
+  companies: Company[]
+}) => {
   const classes = useStyles()
   const [tags, setTags] = useState<Map<string, string>>(new Map())
   const [levels, setLevels] = useState<Map<number, boolean>>(new Map())
@@ -88,8 +94,8 @@ export const SearchArea: React.VFC<{ techs: Tech[] }> = ({ techs }: { techs: Tec
       <Box mt={3}>
         <Autocomplete
           id="combo-box-demo"
-          options={techs}
-          getOptionLabel={(option: Tech) => option.name}
+          options={techs.map((tech) => tech.name).concat(companies.map((company) => company.name))}
+          getOptionLabel={(option: string) => option}
           style={{ width: '100%' }}
           renderInput={(params) => (
             <TextField

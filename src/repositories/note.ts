@@ -56,5 +56,5 @@ export const fetchAllNotes = async (): Promise<NotesModel> => {
   // FIXME(Nakajima 2021/05/17): Fetch Data From API
   const note = await fetchNote('1')
   const notes = [...Array(6)].map(() => note)
-  return { notes: notes, current: 6, all: 100, nextID: 'testtest' }
+  return { notes: notes, currentPage: 6, totalPages: 100, nextID: 'testtest' }
 }

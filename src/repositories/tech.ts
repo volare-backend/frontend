@@ -1,6 +1,6 @@
 import { Tech } from '../models'
 
-export const fetchTechsAndCompanies = async (): Promise<Tech[]> => {
+export const fetchTechs = async (): Promise<Tech[]> => {
   // FIXME(Nakajima 2021/05/24): Fetch Data From API
   return new Promise((resolve, reject) => {
     setTimeout(() => resolve([...Languages]))
