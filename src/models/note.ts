@@ -18,3 +18,10 @@ export type Note = {
   internStyle: InternStyle
   content: string
 }
+
+export type Notes = {
+  notes: Note[]
+  currentPage: number
+  totalPages: number
+  nextID: string
+}
