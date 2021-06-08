@@ -3,9 +3,7 @@
 
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 import React from 'react'
-import theme from '../theme'
 import { ServerStyleSheets } from '@material-ui/core'
-
 export default class MyDocument extends Document {
   // @ts-ignore
   static async getInitialProps(ctx) {
@@ -29,7 +27,6 @@ export default class MyDocument extends Document {
     return (
       <Html lang="ja">
         <Head>
-          <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
         </Head>
         <body>
