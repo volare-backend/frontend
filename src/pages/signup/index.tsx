@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { TextField, Button, Grid, Container, Link, Box, Divider } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
-import firebase, { auth } from '../utils/firebase'
+import firebase, { auth } from '../../utils/firebase'
 
 const useStyles = makeStyles((theme) => ({
   button: {
