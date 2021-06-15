@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react'
 import { Box, makeStyles, Theme, Grid, Typography, Tabs, Tab, Container } from '@material-ui/core'
 import { Pagination } from '@material-ui/lab'
@@ -96,15 +95,6 @@ const Home: React.VFC<{ notes: NotesModel }> = ({ notes }: { notes: NotesModel }
       </Grid>
     </Container>
   )
-=======
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import React from 'react'
-import { User } from './users'
-
-export default function Home() {
-  return <User />
->>>>>>> use state
 }
 
 export const getStaticProps: GetStaticProps = async () => {
