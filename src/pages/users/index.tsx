@@ -6,7 +6,15 @@ import Grid from '@material-ui/core/Grid'
 import { Box, Button, CardActions, CardContent, Typography, Card } from '@material-ui/core'
 
 export const User: React.FC<any> = () => {
-  const [imageURL, setImageURL] = useState()
+  const notes: Note[] = []
+  const [imageURL, setImageURL] = useState("")
+  const [name, setName] = useState("")
+  const [university, setUniversity] = useState("")
+  const [department, setDepartment] = useState("")
+  const [graduationYear, setGraduationYear] = useState("")
+  const [noteList, setNoteList] = useState(notes)
+
+
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       image: {
@@ -21,20 +29,35 @@ export const User: React.FC<any> = () => {
     }),
   )
 
-  const card = (
+  type Note = {
+    enterprise: string;
+    job_start_date: string;
+    job_end_date: string;
+    title: string;
+  };
+
+  const NoteComponent = (props: Note) => (
+    <Card variant="outlined" className={classes.note}>
     <React.Fragment>
       <CardContent>
-        <Typography>株式会社メルカリ</Typography>
-        <Typography>2021/05/01~2021/08/31</Typography>
+        <Typography>{props.enterprise}</Typography>
+        <Typography>{props.job_start_date}~{props.job_end_date}</Typography>
       </CardContent>
       <CardActions>
-        <a>長期就業型インターン</a>
+        <a>{props.title}</a>
       </CardActions>
     </React.Fragment>
+    </Card>
   )
 
+  
   useEffect(() => {
     setImageURL('https://avatars.githubusercontent.com/u/42636694?v=4')
+    setName("名前名前")
+    setDepartment("学部")
+    setGraduationYear("100卒")
+    setUniversity("大学名")
+    setNoteList(notes)
   }, [])
   const classes = useStyles()
   return (
@@ -43,24 +66,21 @@ export const User: React.FC<any> = () => {
         <Avatar alt="User Image" src={imageURL} className={classes.image} />
       </Grid>
       <Grid item xs={6}>
-        <h2>Ryota Yamada</h2>
+        <h2>{name}</h2>
         <p>
-          東京工業大学
+          {university}
           <br />
-          工学院情報通信系
+          {department}
           <br />
-          22卒
+          {graduationYear}
           <br />
         </p>
       </Grid>
       <Box m={4}>
         <h4>投稿したインターン体験記</h4>
-        <Card variant="outlined" className={classes.note}>
-          {card}
-        </Card>
-        <Card variant="outlined" className={classes.note}>
-          {card}
-        </Card>
+        {noteList.map(list => (
+          <NoteComponent enterprise={list.enterprise} job_start_date={list.job_start_date} job_end_date={list.job_end_date} title={list.title}/>
+        ))}
       </Box>
     </Grid>
   )
